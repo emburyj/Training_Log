@@ -18,13 +18,15 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 from users import views as user_views
-# from activities import views as activity_views
+from activities import views as activity_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', user_views.register, name='register')
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-
-
+    path('Register/', user_views.register_view, name='register')
+    path('Login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('Logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('About/', activity_views.about_view, name='about'),
+    path('Training-Log/', activity_views.training_log_view, name='training_log'),
+    path('Create-Activity/', activity_views.create_activity_view, name='create_activity'),
+    re_path(r'Edit-Activity/(?P<aid>\d+)/$', activity_views.edit_activity_view, name='edit_activity'),
 ]

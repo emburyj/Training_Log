@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block fullpage %}
+{% load crispy_forms_tags %}
+
+<section class="vh-100 backgroundColor">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <h3 class="mb-5">Register</h3>
+                        <form method="POST">
+                            <div class="form-group form-control">
+                                {% csrf_token %}
+                                {{ form }}
+                            </div>
+                            <button class="btn btn-primary-bg btn-lg btn-outline-dark mt-4" type="submit">Sign Up</button>
+                        </form>
+                        <hr class="my-4">
+                        <small class="text-muted">
+                            Already have an account? <a  class="ml-2 recipeLink" href="{% url 'login' %}">Sign In</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock%}
