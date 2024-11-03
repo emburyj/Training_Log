@@ -15,7 +15,13 @@ def training_log_view(request):
     context = {}
     recent_activities_query = Activity.objects.order_by('date')[:10]
     recent_activities = [x for x in recent_activities_query]
-    context["activities"] = recent_activities
+    recent_activities_dict = {}
+    for activity in recent_activities:
+        recent_activities_dict[activity] = {
+                                     'pace_string': get_pace(activity),
+                                     'duration_string': get_duration_string(activity)
+                                     }
+    context["activities"] = recent_activities_dict
     return render(request, 'training_log.html', context)
 
 @login_required
@@ -40,6 +46,8 @@ def get_pace(activity):
     pace = raw_pace/60 # min/mi
     pace_minutes = math.floor(pace)
     pace_seconds = math.floor((pace - pace_minutes)*60)
+    if pace_seconds < 10:
+        return f"{pace_minutes}:0{pace_seconds}"
     return f"{pace_minutes}:{pace_seconds}"
 
 def get_duration_string(activity):
