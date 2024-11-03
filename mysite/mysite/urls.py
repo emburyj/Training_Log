@@ -22,7 +22,7 @@ from activities import views as activity_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Register/', user_views.register_view, name='register')
+    path('Register/', user_views.register_view, name='register'),
     path('Login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('Logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('About/', activity_views.about_view, name='about'),

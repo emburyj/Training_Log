@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime as dt
 
@@ -15,6 +16,6 @@ def register_view(request):
         else:
             pass
 
-        else:
-            form = UserRegisterForm()
+    else:
+        form = UserRegisterForm()
         return render(request, 'users/register.html', {'form': form})
