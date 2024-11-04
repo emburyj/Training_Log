@@ -10,7 +10,7 @@
             <div class="card-body">
                 <form action="" method="POST">
                     {% csrf_token %}
-                    {{ activity_form|crispy }}
+                    {{ form|crispy }}
                     <button type="submit" class="btn border">Save</button>
                     <a class="btn border" href="{% url 'training_log' %}">Cancel</button>
                 </form>

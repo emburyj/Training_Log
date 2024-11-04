@@ -45,13 +45,22 @@ def create_activity_view(response):
             sport = new_activity.cleaned_data["sport"]
             save_activity = Activity(athlete=current_user, sport=sport, location=location, date=date, time=time, title=title, description=description, duration=duration, distance=distance, elevation=elevation)
             save_activity.save()
+        else:
+            return HttpResponseRedirect("/Create-Activity/")
     context = {'activity_form': new_activity_form}
     return render(response, 'create_activity.html', context)
 
 @login_required
-def edit_activity_view(request):
-    context = {}
-    return render(request, 'edit_activity.html', context)
+def edit_activity_view(response, aid):
+    edit_activity = Activity.objects.get(aid=aid)
+    raw_hours = (edit_activity.duration/3600)
+    hours = math.floor(raw_hours)
+    raw_minutes = 60*(raw_hours - hours)
+    minutes = math.floor(raw_minutes)
+    seconds = math.floor(60*(raw_minutes - minutes))
+    form = new_activity_form(response.POST, instance=edit_activity)
+    context = {'form': form}
+    return render(response, 'edit_activity.html', context)
 '''
 Helper functions
 '''
