@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from activities.models import Activity
 from users.models import *
 import math
-# from activities.forms import *
+from activities.forms import new_activity_form
 
 @login_required
 def about_view(request):
@@ -25,9 +25,28 @@ def training_log_view(request):
     return render(request, 'training_log.html', context)
 
 @login_required
-def create_activity_view(request):
-    context = {}
-    return render(request, 'create_activity.html', context)
+def create_activity_view(response):
+    current_user = response.user
+    if response.method == "POST":
+        new_activity = new_activity_form(response.POST)
+        if new_activity.is_valid():
+            hours = new_activity.cleaned_data["duration_hours"]
+            minutes = new_activity.cleaned_data["duration_minutes"]
+            seconds = new_activity.cleaned_data["duration_seconds"]
+            activity_duration = 3600*int(hours) + 60*int(minutes) + int(seconds)
+            distance = new_activity.cleaned_data["distance"]
+            duration = activity_duration
+            elevation = new_activity.cleaned_data["elevation"]
+            date = new_activity.cleaned_data["date"]
+            time = new_activity.cleaned_data["time"]
+            location = new_activity.cleaned_data["location"]
+            title = new_activity.cleaned_data["title"]
+            description = new_activity.cleaned_data["description"]
+            sport = new_activity.cleaned_data["sport"]
+            save_activity = Activity(athlete=current_user, sport=sport, location=location, date=date, time=time, title=title, description=description, duration=duration, distance=distance, elevation=elevation)
+            save_activity.save()
+    context = {'activity_form': new_activity_form}
+    return render(response, 'create_activity.html', context)
 
 @login_required
 def edit_activity_view(request):

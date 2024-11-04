@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block leftnav %}
-<h2> Hello from the left!</h2>
+<div class="col align-self-center container-lg">
+    <a href="{% url 'create_activity' %}" class="btn btn-primary-bg btn-lg btn-outline-dark d-grid gap-2 mx-auto">
+        <h4>New Activity</h4>
+    </a>
+</div>
 {% endblock %}
 
 {% block centernav%}
@@ -51,7 +55,7 @@
             </div>
             <div class="row">
                 <div class="col mt-0">
-                    <h6>{{ key.date}} | {{ key.time }} | Odgen, UT</h6>
+                    <h6>{{ key.date}} | {{ key.time }} | {{ key.location }}</h6>
                 </div>
             </div>
             <div class="row">

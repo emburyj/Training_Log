@@ -5,6 +5,7 @@ class Activity(models.Model):
     aid = models.AutoField(primary_key=True)
     athlete = models.ForeignKey(User, on_delete=models.CASCADE)
     sport = models.CharField(max_length=128)
+    location = models.CharField(max_length=128, default="Corvallis, OR")
     date = models.DateField(auto_now_add=True)
     time = models.TimeField()
     title = models.CharField(max_length=128)
