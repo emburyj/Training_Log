@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from activities.models import Activity
 from users.models import *
 import math
@@ -51,16 +53,22 @@ def create_activity_view(response):
     return render(response, 'create_activity.html', context)
 
 @login_required
-def edit_activity_view(response, aid):
+def edit_activity_view(request, aid):
     edit_activity = Activity.objects.get(aid=aid)
-    raw_hours = (edit_activity.duration/3600)
-    hours = math.floor(raw_hours)
-    raw_minutes = 60*(raw_hours - hours)
-    minutes = math.floor(raw_minutes)
-    seconds = math.floor(60*(raw_minutes - minutes))
-    form = new_activity_form(response.POST, instance=edit_activity)
-    context = {'form': form}
-    return render(response, 'edit_activity.html', context)
+    if request.method == "POST":
+        form = new_activity_form(request.POST, instance=edit_activity)
+        if form.is_valid():
+            # raw_hours = (edit_activity.duration/3600)
+            # hours = math.floor(raw_hours)
+            # raw_minutes = 60*(raw_hours - hours)
+            # minutes = math.floor(raw_minutes)
+            # seconds = math.floor(60*(raw_minutes - minutes))
+            edit_activity.save()
+            messages.success(request, "Your activity has been changed!")
+            return redirect('training_log')
+    else:
+        form = new_activity_form(instance=edit_activity)
+        return render(request, 'edit_activity.html', {'form': form})
 '''
 Helper functions
 '''
