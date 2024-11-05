@@ -11,7 +11,7 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                     {{ activity_form|crispy }}
-                    <button type="submit" class="btn border">Save</button>
+                    <button type="submit" class="btn border btn-success">Save</button>
                     <a class="btn border" href="{% url 'training_log' %}">Cancel</button>
                 </form>
             </div>

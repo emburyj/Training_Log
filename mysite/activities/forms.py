@@ -9,6 +9,10 @@ class new_activity_form(forms.ModelForm):
     class Meta:
         model = Activity
         fields = ["distance", "duration", "elevation", "date", "time", "location", "title", "description"]
+        widgets = {
+        'date': forms.DateInput(attrs={'type': 'date'}),
+        'time': forms.TimeInput(attrs={'type': 'time'}),
+        }
     # sport_choices = ((1, 'Run'),)
 
     # distance = forms.DecimalField(label="Distance (miles)", max_digits=7, decimal_places=2)

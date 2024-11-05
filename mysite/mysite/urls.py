@@ -19,6 +19,8 @@ from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 from users import views as user_views
 from activities import views as activity_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +32,4 @@ urlpatterns = [
     path('Training-Log/', activity_views.training_log_view, name='training_log'),
     path('Create-Activity/', activity_views.create_activity_view, name='create_activity'),
     re_path(r'Edit-Activity/(?P<aid>\d+)/$', activity_views.edit_activity_view, name='edit_activity'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

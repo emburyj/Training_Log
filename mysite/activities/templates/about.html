@@ -3,6 +3,108 @@
 
 
 {% block centernav%}
-<h1>Hello there!</h1>
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" style="text-decoration:none; color:black;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3>About</h3>
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+       RunTrack is a simple  app to log and track your running activities, designed for all users. Record your
+       distance, duration, location, and we’ll track your progress to see how far you've come. Whether you’re
+       training for a race or just enjoying a casual jog, RunTrack keeps every step of your journey in one place.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" style="text-decoration:none; color:black;" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h3>Quick Start Guide</h3>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        <h4>Get your running on track!</h4>
+        <ol>
+            <li>Create an Account</li>
+                <ul>
+                    <li>Choose a username (just use your name!)</li>
+                    <li>Create a password</li>
+                    <li>Login with your credentials</li>
+                </ul>
+            <li>Log your running activity</li>
+                <ul>
+                    <li>Click the New Activity button</li>
+                    <li>Enter the details of your run</li>
+                    <li>Click the Save button</li>
+                </ul>
+            <li>Track your progress</li>
+                <ul>
+                    <li>View your activities on the Training Log page</li>
+                    <li>Scroll through your feed of past run activities</li>
+                    <li>View your activity stats over time</li>
+                </ul>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" style="text-decoration:none; color:black;" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h3>Documentation</h3>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        <h4>Logging a new activity</h4>
+        <h5>There are a variety of fields to edit when creating a new activity.</h5>
+        <ol>
+            <li>Distance</li>
+            <ul>
+                <li>Enter the distance, in miles, of your run.</li>
+            </ul>
+            <li>Duration</li>
+            <ul>
+                <li>This is the duration, in seconds, of the activity.</li>
+            </ul>
+            <li>Elevation</li>
+            <ul>
+                <li>Enter the elevation gain, in feet, that you climbed during your run.</li>
+            </ul>
+            <li>Date</li>
+            <ul>
+                <li>This is the date on which the activity occurred.</li>
+            </ul>
+            <li>Time</li>
+            <ul>
+                <li>Enter the time of day that you started your run.</li>
+            </ul>
+            <li>Location</li>
+            <ul>
+                <li>Enter the location where your activity took place.</li>
+            </ul>
+            <li>Title</li>
+            <ul>
+                <li>Give your activity a title to allow you to remember the run.</li>
+            </ul>
+            <li>Description</li>
+            <ul>
+                <li>This is for extended details about your run.
+                 Did you enjoy it? Was it a tough workout? Enter
+                  the details here to help track your progress over time.</li>
+            </ul>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 

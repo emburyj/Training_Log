@@ -32,23 +32,26 @@ def create_activity_view(response):
     if response.method == "POST":
         new_activity = new_activity_form(response.POST)
         if new_activity.is_valid():
-            hours = new_activity.cleaned_data["duration_hours"]
-            minutes = new_activity.cleaned_data["duration_minutes"]
-            seconds = new_activity.cleaned_data["duration_seconds"]
-            activity_duration = 3600*int(hours) + 60*int(minutes) + int(seconds)
+            # hours = new_activity.cleaned_data["duration_hours"]
+            # minutes = new_activity.cleaned_data["duration_minutes"]
+            # seconds = new_activity.cleaned_data["duration_seconds"]
+            # activity_duration = 3600*int(hours) + 60*int(minutes) + int(seconds)
+            # duration = activity_duration
+            duration = new_activity.cleaned_data["duration"]
             distance = new_activity.cleaned_data["distance"]
-            duration = activity_duration
             elevation = new_activity.cleaned_data["elevation"]
             date = new_activity.cleaned_data["date"]
             time = new_activity.cleaned_data["time"]
             location = new_activity.cleaned_data["location"]
             title = new_activity.cleaned_data["title"]
             description = new_activity.cleaned_data["description"]
-            sport = new_activity.cleaned_data["sport"]
-            save_activity = Activity(athlete=current_user, sport=sport, location=location, date=date, time=time, title=title, description=description, duration=duration, distance=distance, elevation=elevation)
+            # sport = new_activity.cleaned_data["sport"]
+            save_activity = Activity(athlete=current_user, location=location, date=date, time=time, title=title, description=description, duration=duration, distance=distance, elevation=elevation)
             save_activity.save()
+            messages.success(response, "Your activity has been created!")
+            return redirect("training_log")
         else:
-            return HttpResponseRedirect("/Create-Activity/")
+            return redirect("create_activity")
     context = {'activity_form': new_activity_form}
     return render(response, 'create_activity.html', context)
 
@@ -56,6 +59,11 @@ def create_activity_view(response):
 def edit_activity_view(request, aid):
     edit_activity = Activity.objects.get(aid=aid)
     if request.method == "POST":
+        if 'activityDelete' in request.POST.keys():
+            edit_activity.delete()
+            messages.success(request, "Your activity has been deleted!")
+            return redirect('training_log')
+
         form = new_activity_form(request.POST, instance=edit_activity)
         if form.is_valid():
             # raw_hours = (edit_activity.duration/3600)

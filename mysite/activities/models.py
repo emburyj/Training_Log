@@ -11,4 +11,4 @@ class Activity(models.Model):
     time = models.TimeField(blank=False, null=False, verbose_name="Time")
     location = models.CharField(max_length=128, default="Corvallis, OR", verbose_name="Location")
     title = models.CharField(blank=False, null=False, max_length=128, verbose_name="Title")
-    description = models.CharField(max_length=1080, verbose_name="Description")
+    description = models.CharField(max_length=1080, verbose_name="Description", blank=True)
