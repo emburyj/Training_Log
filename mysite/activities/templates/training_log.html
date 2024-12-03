@@ -7,6 +7,18 @@
         <h4>New Activity</h4>
     </a>
 </div>
+<form method="POST">
+    {% csrf_token %}
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="submit" name="Imperial" value="Imperial" class="btn btn-secondary">
+          Imperial
+      </button>
+      <button type="submit" name="Metric" value="Metric" class="btn btn-secondary">
+          Metric
+      </button>
+    </div>
+</form>
+
 {% endblock %}
 
 {% block centernav%}
@@ -89,10 +101,10 @@
             </div>
             <div class="row text-center">
                 <div class="col text-left">
-                    <h4>{{ key.distance }} mi</h4>
+                    <h4>{{ val.distance_string }}</h4>
                 </div>
                 <div class="col text-center">
-                    <h4>{{ val.pace_string }} /mi</h4>
+                    <h4>{{ val.pace_string }}</h4>
                 </div>
                 <div class="col text-right">
                     <h4>{{ val.duration_string }}</h4>
@@ -152,19 +164,19 @@
             <tbody>
                 <tr>
                     <td>Activities</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ ytd_stats.activities }}</td>
                 </tr>
                 <tr>
                     <td>Distance</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ ytd_stats.distance}}</td>
                 </tr>
                 <tr>
                     <td>Time</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ ytd_stats.time }}</td>
                 </tr>
                 <tr>
                     <td>Elev Gain</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ ytd_stats.elevation }}</td>
                 </tr>
             </tbody>
         </table>
@@ -183,18 +195,18 @@
             <tbody>
                 <tr>
                     <td>Activities</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ all_stats.activities }}</td>
                 </tr>
                 <tr>
                     <td>Distance</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ all_stats.distance }}</td>
                 <tr>
                     <td>Time</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ all_stats.time }}</td>
                 </tr>
                 <tr>
                     <td>Elev Gain</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ all_stats.elevation }}</td>
                 </tr>
             </tbody>
         </table>
