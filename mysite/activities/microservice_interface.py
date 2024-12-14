@@ -12,7 +12,9 @@ def convert(activities):
 
     # send activities to msA
     socket.send_json({"action": "convert", "data": activities})
+    print("Sending conversion request to Microservice A!!")
     converted_activities = socket.recv_json()
+    print(f"Received the following converted data from Microservice A:\n{converted_activities}")
 
     return converted_activities
 
@@ -35,7 +37,9 @@ def retrieve_stats(time, activities, is_metric):
 
     # send activities to msB
     socket.send_json({"time": time, "data": data})
+    print("Sending stat request to Microservice B!!")
     retrieved_stats = socket.recv_json()
+    print(f"Received the following data from Microservice B:\n{retrieved_stats}")
     data = retrieved_stats
     if is_metric:
         # send it to msA
@@ -45,6 +49,73 @@ def retrieve_stats(time, activities, is_metric):
                     "time": get_duration_string(data['duration']),
                     "distance": get_distance_string(data['distance'], is_metric),
                     "elevation": get_elevation_string(data['elevation'], is_metric)
+    }
+    return formatted_data
+
+#-----------------------------------------------------------------------------#
+# Interface with Microservice C
+#-----------------------------------------------------------------------------#
+def average_stats(time, activities, is_metric):
+    context = zmq.Context()
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://localhost:5557")
+
+    # parse activities into data we need
+    data = []
+    for activity in activities:
+        date_string = activity.date.strftime("%Y-%m-%d")
+        distance = float(activity.distance)
+        duration = activity.duration
+        elev = activity.elevation
+        data.append({'date': date_string, 'distance': distance, 'duration': duration, 'elevation': elev})
+
+    # send activities to msC
+    socket.send_json({"time": time, "data": data})
+    print("Sending stat request to Microservice C!!")
+    retrieved_stats = socket.recv_json()
+    print(f"Received the following data from Microservice C:\n{retrieved_stats}")
+    data = retrieved_stats
+    if is_metric:
+        # send it to msA
+        data = convert([retrieved_stats])[0]
+    formatted_data = {
+                    "activities": str(data['activities']),
+                    "time": get_duration_string(data['duration']),
+                    "distance": get_distance_string(data['distance'], is_metric),
+                    "elevation": get_elevation_string(data['elevation'], is_metric)
+    }
+    return formatted_data
+
+#-----------------------------------------------------------------------------#
+# Interface with Microservice D
+#-----------------------------------------------------------------------------#
+def snapshot_stats(activities, is_metric):
+    context = zmq.Context()
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://localhost:5558")
+
+    # parse activities into data we need
+    data = []
+    for activity in activities:
+        date_string = activity.date.strftime("%Y-%m-%d")
+        distance = float(activity.distance)
+        duration = activity.duration
+        elev = activity.elevation
+        data.append({'date': date_string, 'distance': distance, 'duration': duration, 'elevation': elev})
+
+    # send activities to msD
+    socket.send_json({"data": data})
+    print("Sending snapshot request to Microservice D!!")
+    retrieved_stats = socket.recv_json()
+    print(f"Received the following data from Microservice D:\n{retrieved_stats}")
+    data = retrieved_stats
+    if is_metric:
+        # send it to msA
+        data = convert([retrieved_stats])[0]
+    formatted_data = {
+                    "activities": str(data['activities']),
+                    "time": get_duration_string(data['duration']),
+                    "distance": get_distance_string(data['distance'], is_metric)
     }
     return formatted_data
 #-----------------------------------------------------------------------------#
@@ -64,10 +135,10 @@ def get_duration_string(activity_duration):
 
 def get_distance_string(distance, is_metric):
     if is_metric:
-        return f"{distance} km"
-    return f"{distance} mi"
+        return f"{distance:.1f} km"
+    return f"{distance:.1f} mi"
 
 def get_elevation_string(elev, is_metric):
     if is_metric:
-        return f"{elev} m"
-    return f"{elev} ft"
+        return f"{elev:.1f} m"
+    return f"{elev:.1f} ft"

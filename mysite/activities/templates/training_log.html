@@ -43,13 +43,13 @@
             </div>
             <div class="row">
                 <div class="col mt-0">
-                    <h5>TBD</h5>
+                    <h5>{{ snapshot.activities }}</h5>
                 </div>
                 <div class="col mt-0">
-                    <h5>TBD</h5>
+                    <h5>{{ snapshot.distance }}</h5>
                 </div>
                 <div class="col mt-0">
-                    <h5>TBD</h5>
+                    <h5>{{ snapshot.time }}</h5>
                 </div>
             </div>
         </div>
@@ -133,19 +133,19 @@
             <tbody>
                 <tr>
                     <td>Activities / Week</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ avg_stats.activities }}</td>
                 </tr>
                 <tr>
                     <td>Avg Distance / Week</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ avg_stats.distance }}</td>
                 </tr>
                 <tr>
                     <td>Avg Time / Week</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ avg_stats.time }}</td>
                 </tr>
                 <tr>
                     <td>Elev Gain / Week</td>
-                    <td class="text-end">TBD</td>
+                    <td class="text-end">{{ avg_stats.elevation }}</td>
                 </tr>
             </tbody>
         </table>

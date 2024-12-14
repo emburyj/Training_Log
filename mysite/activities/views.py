@@ -61,9 +61,13 @@ def training_log_view(response):
     all_activities = [x for x in all_activity_query]
     all_stats = msi.retrieve_stats("ALL", all_activities, is_metric)
     ytd_stats = msi.retrieve_stats("YEAR", all_activities, is_metric)
+    avg_stats = msi.average_stats("MONTH", all_activities, is_metric)
+    snapshot = msi.snapshot_stats(all_activities, is_metric)
     context["activities"] = recent_activities_dict
     context["ytd_stats"] = ytd_stats
     context["all_stats"] = all_stats
+    context["avg_stats"] = avg_stats
+    context["snapshot"] = snapshot
     return render(response, 'training_log.html', context)
 
 @login_required
