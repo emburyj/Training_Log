@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .forms import UserRegisterForm
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import datetime as dt
 from users.models import Units

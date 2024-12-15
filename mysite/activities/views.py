@@ -33,7 +33,7 @@ def training_log_view(response):
         return redirect("training_log")
 
     context = {}
-    recent_activities_query = Activity.objects.order_by('-date', '-time')[:10]
+    recent_activities_query = Activity.objects.filter(athlete=current_user).order_by('-date', '-time')[:10]
     recent_activities = [x for x in recent_activities_query]
 
     if is_metric:
@@ -57,7 +57,7 @@ def training_log_view(response):
                                      'duration_string': msi.get_duration_string(activity.duration)
                                      }
 
-    all_activity_query = Activity.objects.order_by('date')
+    all_activity_query = Activity.objects.filter(athlete=current_user).order_by('date')
     all_activities = [x for x in all_activity_query]
     all_stats = msi.retrieve_stats("ALL", all_activities, is_metric)
     ytd_stats = msi.retrieve_stats("YEAR", all_activities, is_metric)

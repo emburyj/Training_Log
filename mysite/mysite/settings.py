@@ -14,20 +14,32 @@ from pathlib import Path
 import os
 import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
 # get SECRET_KEY from env
-SECRET_KEY = config('SECRET_KEY') 
+SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+BASE_DIR = Path(__file__).resolve().parent.parent
+# production settings:
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# ALLOWED_HOSTS = ["*"]
+# DEBUG = False
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+#     )
+# }
 
-ALLOWED_HOSTS = ["*"]
 
+# development settings:
+DEBUG = True
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+ALLOWED_HOSTS = ["127.0.0.1"]
+# development database:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+  'NAME': BASE_DIR / 'mysite.db',
+    }
+}
 
 # Application definition
 
@@ -76,22 +88,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
-# Database
 
-# development database:
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#     #    'NAME': BASE_DIR / 'db.sqlite3',
-# 	'NAME': BASE_DIR / 'mysite.db',
-#     }
-# }
-# production database:
-DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-    )
-}
 
 # Password validation
 
@@ -127,7 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 LOGIN_URL = 'Login/'
 LOGIN_REDIRECT_URL = '/Training-Log/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
