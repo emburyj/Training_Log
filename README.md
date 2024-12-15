@@ -25,3 +25,16 @@ RunTrack is a simple app to log and track your running activities, designed for 
     - All-time activity calculations
     - Imperial/metric unit conversion
 - This project was done as part of the CS361 (Software Engineering 1) final course project at Oregon State University.
+
+## Screenshots of Application
+- Login Page:
+![](/screenshots/runtrack_login.png?raw=true)
+
+- Training Log Page
+![](/screenshots/runtrack_training_log.png?raw=true)
+
+- About Page
+![](/screenshots/runtrack_about.png?raw=true)
+
+- Create New Activity Form
+![](/screenshots/runtrack_new_activity.png?raw=true)
