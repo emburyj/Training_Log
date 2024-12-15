@@ -19,27 +19,27 @@ SECRET_KEY = config('SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 # production settings:
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# ALLOWED_HOSTS = ["*"]
-# DEBUG = False
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-#     )
-# }
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+ALLOWED_HOSTS = ["*"]
+DEBUG = False
+DATABASES = {
+    'default': dj_database_url.config(
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+    )
+}
 
 
 # development settings:
-DEBUG = True
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-ALLOWED_HOSTS = ["127.0.0.1"]
-# development database:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-  'NAME': BASE_DIR / 'mysite.db',
-    }
-}
+# DEBUG = True
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+# ALLOWED_HOSTS = ["127.0.0.1"]
+# # development database:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#   'NAME': BASE_DIR / 'mysite.db',
+#     }
+# }
 
 # Application definition
 
